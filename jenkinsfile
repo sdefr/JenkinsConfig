@@ -1,17 +1,16 @@
 pipeline { 
     agent any 
     stages {
-        stage('get code from git') { 
+        stage('clean') { 
             steps { 
-                git clone "https://github.com/sdefr/JenkinsConfig.git"
-                
+                sh "maven clean"
             }
         }
         stage('compile and run')
         {
         steps{
-        sh javac Main.java
-        sh Mani java
+        sh "javac Main.java"
+        sh "Main java"
         }
         }
         stage('Test'){
