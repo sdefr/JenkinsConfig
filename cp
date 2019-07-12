@@ -1,2 +1,0 @@
-var = "Ankita"
-echo var

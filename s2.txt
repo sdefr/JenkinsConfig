@@ -1,2 +1,0 @@
-Myvar  "Ankita"
-echo $MyVar
