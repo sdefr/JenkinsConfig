@@ -1,0 +1,29 @@
+pipeline { 
+    agent any 
+    stages {
+        stage('get code from git') { 
+            steps { 
+                git clone "https://github.com/sdefr/JenkinsConfig.git"
+                
+            }
+        }
+        stage('compile and run')
+        {
+        steps{
+        sh javac Main.java
+        sh Mani java
+        }
+        }
+        stage('Test'){
+            steps {
+                sh 'mvn test'
+                
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+    }
+}
