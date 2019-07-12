@@ -1,6 +1,11 @@
 pipeline { 
     agent any 
     stages {
+    stage('checkout'){
+    steps{
+    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'c498a962-a3bb-4ed1-8aac-657d0858598b', url: 'https://github.com/sdefr/JenkinsConfig.git']]])
+    }
+    }
         stage('clean') { 
             steps { 
                sh "mvn clean"
@@ -15,15 +20,20 @@ pipeline {
         
         stage('Compile and Run'){
         steps{
-        sh "javac Main.java"
-        sh "Main java"
-        echo "done"
+        sh label: '', script: '''javac Main.java
+Main.java'''
         }
         }
         stage('build') {
             steps {
                 sh 'mvn package'
             }
+        }
+        stage ('message')
+        {
+        steps{
+        emailext body: 'Your job has failed', subject: 'Build Failure', to: 'nktb18@gmail.com'
+        }
         }
     }
 }
