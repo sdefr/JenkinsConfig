@@ -3,25 +3,18 @@ pipeline {
     stages {
         stage('clean') { 
             steps { 
-                sh "maven clean"
+               sh "mvn clean"
             }
-        }
-        stage('compile and run')
-        {
-        steps{
-        sh "javac Main.java"
-        sh "Main java"
-        }
         }
         stage('Test'){
             steps {
                 sh 'mvn test'
-                
+             
             }
         }
-        stage('Deploy') {
+        stage('build') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn package'
             }
         }
     }
